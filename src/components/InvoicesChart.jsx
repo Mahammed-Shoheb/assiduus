@@ -20,15 +20,18 @@ const InvoicesChart = () => {
   const [dimensions, setDimensions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const handleResize = () => {
-    setIsLoading(true);
     setDimensions({
       w: window.document.getElementById('invoice').getBoundingClientRect()
         .width,
       h: window.document.getElementById('invoice').getBoundingClientRect()
         .height,
     });
-    setTimeout(() => setIsLoading(false), 500);
   };
+  useEffect(() => {
+    setIsLoading(true);
+    handleResize();
+    setTimeout(() => setIsLoading(false), 500);
+  }, []);
 
   useEffect(() => {
     handleResize();

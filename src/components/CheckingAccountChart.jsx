@@ -55,17 +55,19 @@ const CheckingAccountChart = () => {
   const [dimensions, setDimensions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const handleResize = () => {
-    setIsLoading(true);
     setDimensions({
       w: window.document.getElementById('account').getBoundingClientRect()
         .width,
       h: window.document.getElementById('account').getBoundingClientRect()
         .height,
     });
-    setTimeout(() => setIsLoading(false), 500);
   };
   useEffect(() => {
+    setIsLoading(true);
     handleResize();
+    setTimeout(() => setIsLoading(false), 500);
+  }, []);
+  useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);

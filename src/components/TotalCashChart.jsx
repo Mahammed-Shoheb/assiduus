@@ -22,13 +22,16 @@ const TotalCashChart = () => {
   const [dimensions, setDimensions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const handleResize = () => {
-    setIsLoading(true);
     setDimensions({
       w: window.document.getElementById('total').getBoundingClientRect().width,
       h: window.document.getElementById('total').getBoundingClientRect().height,
     });
-    setTimeout(() => setIsLoading(false), 500);
   };
+  useEffect(() => {
+    setIsLoading(true);
+    handleResize();
+    setTimeout(() => setIsLoading(false), 500);
+  }, []);
   useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
