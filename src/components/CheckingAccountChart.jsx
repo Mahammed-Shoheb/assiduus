@@ -23,7 +23,7 @@ const CheckAccountHeaderDiv = () => {
     <div className='flex gap-3 justify-between text-sm'>
       <select
         name='data'
-        className='border  py-1 px-2 rounded-md cursor-pointer'
+        className='border  md:py-1 md:px-2 rounded-md cursor-pointer'
         onChange={() => changeChartsData()}
       >
         <option value='Manage'>Manage</option>
@@ -31,7 +31,7 @@ const CheckAccountHeaderDiv = () => {
       </select>
       <select
         name='month'
-        className='border py-1 px-2 rounded-md cursor-pointer'
+        className='border md:py-1 md:px-2  rounded-md cursor-pointer'
         value={month}
         onChange={(e) => {
           setMonth(e.target.value);
@@ -52,23 +52,25 @@ const CheckAccountHeaderDiv = () => {
 
 const CheckingAccountChart = () => {
   const { accountData } = useGloableContext();
-  const [dimensions, setDimensions] = useState({ w: 300, h: 300 });
+  const [dimensions, setDimensions] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const handleResize = () => {
+    setIsLoading(true);
     setDimensions({
       w: window.document.getElementById('account').getBoundingClientRect()
         .width,
       h: window.document.getElementById('account').getBoundingClientRect()
         .height,
     });
+    setTimeout(() => setIsLoading(false), 500);
   };
   useEffect(() => {
+    handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('load', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.addEventListener('load', handleResize);
     };
-  });
+  }, []);
   const svgRef = useRef();
 
   useEffect(() => {
@@ -80,13 +82,13 @@ const CheckingAccountChart = () => {
     const xScale = d3
       .scaleLinear()
       .domain([accountData[0][0], accountData[accountData.length - 1][0]])
-      .range([10, dimensions.w - 20]);
+      .range([10, dimensions.w - 10]);
     const yScale = d3.scaleLinear().domain([0, 20]).range([dimensions.h, 0]);
 
     const xAxis = d3.axisBottom(xScale).tickSize(0);
     svg
       .select('.x-axis')
-      .style('transform', `translate(0,${dimensions.h - 40}px)`)
+      .style('transform', `translate(0,${dimensions.h - 20}px)`)
       .style('font-size', '0.75rem')
       .style('color', 'gray')
       .call(xAxis)
@@ -115,7 +117,12 @@ const CheckingAccountChart = () => {
       title={'Checking account'}
       headerDiv={CheckAccountHeaderDiv}
     >
-      <div className='w-full ' id='account'>
+      <div className='w-full h-full relative' id='account'>
+        {isLoading && (
+          <div className='absolute inset-0 grid place-content-center bg-white text-green-500 tracking-widest'>
+            Loading...
+          </div>
+        )}
         <svg ref={svgRef} className=' tracking-wider '>
           <g className='x-axis' />
         </svg>

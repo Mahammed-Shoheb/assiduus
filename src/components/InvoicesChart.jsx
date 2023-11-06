@@ -17,24 +17,26 @@ const InvoicetHeaderDiv = () => {
 };
 
 const InvoicesChart = () => {
-  const [dimensions, setDimensions] = useState({ w: 300, h: 300 });
+  const [dimensions, setDimensions] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const handleResize = () => {
+    setIsLoading(true);
     setDimensions({
       w: window.document.getElementById('invoice').getBoundingClientRect()
         .width,
       h: window.document.getElementById('invoice').getBoundingClientRect()
         .height,
     });
+    setTimeout(() => setIsLoading(false), 500);
   };
 
   useEffect(() => {
+    handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('load', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.addEventListener('load', handleResize);
     };
-  });
+  }, []);
   const { invoiceData } = useGloableContext();
   const svgRef = useRef();
 
@@ -54,7 +56,7 @@ const InvoicesChart = () => {
 
     svg
       .select('.x-axis')
-      .style('transform', `translate(0,${dimensions.h - 20}px)`)
+      .style('transform', `translate(0,${dimensions.h - 15}px)`)
       .style('font-size', '0.75rem')
       .style('color', 'gray')
       .call(xAxis)
@@ -66,7 +68,7 @@ const InvoicesChart = () => {
       .join('rect')
       // .attr('fill', 'rgb(74 222 128 / var(--tw-bg-opacity))')
       .attr('class', 'fill-green-600')
-      .style('transform', `translateY(-40px)`)
+      .style('transform', `translateY(-20px)`)
       .style('ry', `5px`)
       .attr('x', (d) => xScale(d.week))
       .attr('width', xScale.bandwidth())
@@ -78,7 +80,12 @@ const InvoicesChart = () => {
       title={'Invoices owed to you'}
       headerDiv={InvoicetHeaderDiv}
     >
-      <div className='w-full  ' id='invoice'>
+      <div className='w-full  h-full relative' id='invoice'>
+        {isLoading && (
+          <div className='absolute inset-0 grid place-content-center bg-white text-green-500 tracking-widest'>
+            Loading...
+          </div>
+        )}
         <svg ref={svgRef} className='  tracking-wider capitalize'>
           <g className='x-axis' />
         </svg>

@@ -6,7 +6,7 @@ import InvoicesChart from './InvoicesChart';
 
 const Dashboard = () => {
   return (
-    <section className='grid lg:grid-cols-2 p-2 lg:p-8 gap-8  max-w-[100vw]'>
+    <section className='grid lg:grid-cols-2 p-2 lg:p-8 gap-8 '>
       <CheckingAccountChartfrom />
       <InvoicesChart />
       <TotalCashChart />

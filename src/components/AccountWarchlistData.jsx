@@ -6,8 +6,8 @@ const AccountWarchlistData = () => {
     <DashboardContainer title={'Account watchlist'}>
       <table className='capitalize text-left w-full table-fixed '>
         <thead>
-          <tr className='text-gray-400'>
-            <th colSpan={2} className='py-3'>
+          <tr className='text-gray-400 text-sm'>
+            <th colSpan={2} className='py-2'>
               account
             </th>
             <th className='ps-8'>this month</th>
@@ -18,7 +18,7 @@ const AccountWarchlistData = () => {
           {accountWatchlist.map((item, index) => {
             return (
               <tr key={index}>
-                <td colSpan={2} className='py-2'>
+                <td colSpan={2} className='py-1'>
                   {item.account}
                 </td>
                 <td className='ps-8'>{item.month}</td>

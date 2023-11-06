@@ -19,21 +19,23 @@ const TotalCashHeaderDiv = () => {
 };
 
 const TotalCashChart = () => {
-  const [dimensions, setDimensions] = useState({ w: 300, h: 300 });
+  const [dimensions, setDimensions] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const handleResize = () => {
+    setIsLoading(true);
     setDimensions({
       w: window.document.getElementById('total').getBoundingClientRect().width,
       h: window.document.getElementById('total').getBoundingClientRect().height,
     });
+    setTimeout(() => setIsLoading(false), 500);
   };
   useEffect(() => {
+    handleResize();
     window.addEventListener('resize', handleResize);
-    window.addEventListener('load', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.addEventListener('load', handleResize);
     };
-  });
+  }, []);
   const { cashFlowData } = useGloableContext();
   const svgRef = useRef();
 
@@ -57,7 +59,7 @@ const TotalCashChart = () => {
       .attr('class', 'bar1')
       // .attr('fill', 'rgb(74 222 128 / var(--tw-bg-opacity))')
       .attr('class', 'fill-green-400')
-      .style('transform', `translateY(-40px)`)
+      .style('transform', `translateY(-20px)`)
       .style('rx', `5px`)
       .attr('x', (d) => xScale(d.month))
       .attr('width', xScale.bandwidth())
@@ -68,7 +70,7 @@ const TotalCashChart = () => {
       .attr('class', 'bar2')
       // .attr('fill', 'rgb(22 101 52 / var(--tw-bg-opacity))')
       .attr('class', 'fill-green-600')
-      .style('transform', `translateY(-40px)`)
+      .style('transform', `translateY(-20px)`)
       .style('rx', `5px`)
       .attr('x', (d) => xScale(d.month))
       .attr('width', xScale.bandwidth())
@@ -101,7 +103,12 @@ const TotalCashChart = () => {
       title={'Total cash flow'}
       headerDiv={TotalCashHeaderDiv}
     >
-      <div className='w-full ' id='total'>
+      <div className='w-full h-full relative' id='total'>
+        {isLoading && (
+          <div className='absolute inset-0 grid place-content-center bg-white text-green-500 tracking-widest'>
+            Loading...
+          </div>
+        )}
         <svg ref={svgRef} className=' tracking-wider'>
           <g className='x-axis' />
         </svg>
