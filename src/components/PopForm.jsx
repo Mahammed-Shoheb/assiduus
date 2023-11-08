@@ -3,7 +3,7 @@ import { useGloableContext } from '../GloableContext';
 const PopForm = () => {
   const { setIsModalOpen } = useGloableContext();
   return (
-    <div className='fixed inset-0 min-h-screen grid place-content-center bg-[rgba(0,0,0,0.2)]'>
+    <div className='fixed inset-0 min-h-screen grid place-content-center bg-[rgba(0,0,0,0.2)] z-10'>
       <form className='bg-white w-96 h-56 grid place-content-center rounded-lg '>
         <h4 className=' mb-8 text-center capitalize'>Invoice upload form</h4>
         <div className='mb-8 '>
