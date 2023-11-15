@@ -15,18 +15,24 @@ const Header = () => {
         <div className=' flex justify-between w-full '>
           <img src={logo} alt='assiduus logo' className='w-40 lg:hidden ' />
           <button
-            className=' lg:hidden'
+            className='flex gap-2 justify-center items-center lg:hidden'
             onClick={() => setIsMinSidebarOpen(true)}
           >
+            <button
+              className='tracking-tight border border-green-400 bg-none'
+              onClick={() => changeChartsData()}
+            >
+              <FaRandom className='text-green-500  text-2xl hover:text-green-700 p-1  ' />
+            </button>
             <FaBars className=' border-collapse bg-none text-green-500  text-3xl' />
           </button>
         </div>
         <div className=' justify-between items-center gap-6  hidden lg:flex '>
           <button
-            className='tracking-tight border border-green-400 w-full '
+            className='tracking-tight border border-green-400 bg-none'
             onClick={() => changeChartsData()}
           >
-            <FaRandom className='text-green-500  text-2xl hover:text-green-700 p-1' />
+            <FaRandom className='text-green-500  text-2xl hover:text-green-700 p-1  ' />
           </button>
           <div className='bg-gray-50 rounded-lg px-4 py2 flex items-center '>
             <BiSearchAlt2 className='text-xl text-gray-400' />
