@@ -14,18 +14,17 @@ const Header = () => {
       <div className=' px-4 lg:px-8 mx-auto flex items-center justify-between'>
         <div className=' flex justify-between w-full '>
           <img src={logo} alt='assiduus logo' className='w-40 lg:hidden ' />
-          <button
-            className='flex gap-2 justify-center items-center lg:hidden'
-            onClick={() => setIsMinSidebarOpen(true)}
-          >
+          <div className='flex gap-2 justify-center items-center lg:hidden'>
             <button
-              className='tracking-tight border border-green-400 bg-none'
+              className=' border border-green-400 bg-none'
               onClick={() => changeChartsData()}
             >
               <FaRandom className='text-green-500  text-2xl hover:text-green-700 p-1  ' />
             </button>
-            <FaBars className=' border-collapse bg-none text-green-500  text-3xl' />
-          </button>
+            <button className='' onClick={() => setIsMinSidebarOpen(true)}>
+              <FaBars className=' border-collapse bg-none text-green-500  text-3xl' />
+            </button>
+          </div>
         </div>
         <div className=' justify-between items-center gap-6  hidden lg:flex '>
           <button
