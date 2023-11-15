@@ -4,9 +4,10 @@ import profile from '../assets/profile.jpg';
 import { BiSearchAlt2, BiSolidBell, BiCaretDown } from 'react-icons/bi';
 import { FaBars } from 'react-icons/fa';
 import { useGloableContext } from '../GloableContext';
+import { FaRandom } from 'react-icons/fa';
 
 const Header = () => {
-  const { setIsMinSidebarOpen } = useGloableContext();
+  const { setIsMinSidebarOpen, changeChartsData } = useGloableContext();
   const [actvieNotification, setActiveNotification] = useState(true);
   return (
     <header className='max-w-full bg-white shadow-[0_1px_0_0_rgba(0,0,0,0.1)] h-[4rem] py-3  '>
@@ -20,9 +21,16 @@ const Header = () => {
             <FaBars className=' border-collapse bg-none text-green-500  text-3xl' />
           </button>
         </div>
-        <div className=' justify-between items-center gap-6  hidden lg:flex'>
+        <div className=' justify-between items-center gap-6  hidden lg:flex '>
+          <button
+            className='tracking-tight border border-green-400 w-full '
+            onClick={() => changeChartsData()}
+          >
+            <FaRandom className='text-green-500  text-2xl hover:text-green-700 p-1' />
+          </button>
           <div className='bg-gray-50 rounded-lg px-4 py2 flex items-center '>
             <BiSearchAlt2 className='text-xl text-gray-400' />
+
             <input
               type='search'
               name='search'

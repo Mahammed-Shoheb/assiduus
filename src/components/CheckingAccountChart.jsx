@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { useGloableContext } from '../GloableContext';
 
 const CheckAccountHeaderDiv = () => {
-  const { month, setMonth, changeChartsData } = useGloableContext();
+  const { month, setMonth, genAccountDataRandom } = useGloableContext();
   const months = [
     'January',
     'February',
@@ -24,7 +24,7 @@ const CheckAccountHeaderDiv = () => {
       <select
         name='data'
         className='border  md:py-1 md:px-2 rounded-md cursor-pointer'
-        onChange={() => changeChartsData()}
+        onChange={() => genAccountDataRandom()}
       >
         <option value='Manage'>Manage</option>
         <option value='Opt1'>Opt1</option>
@@ -35,7 +35,7 @@ const CheckAccountHeaderDiv = () => {
         value={month}
         onChange={(e) => {
           setMonth(e.target.value);
-          changeChartsData();
+          genAccountDataRandom();
         }}
       >
         {months.map((month) => {

@@ -52,6 +52,14 @@ export const AppContextProvier = ({ children }) => {
 
   const randomNumberGen = (min, max, decimals) =>
     (Math.random() * (max - min) + min).toFixed(decimals);
+
+  const genAccountDataRandom = () => {
+    setAccountData((prev) => {
+      let start = randomNumberGen(0, 17, 0);
+      return [...prev.map((item) => [start++, randomNumberGen(4, 18, 0)])];
+    });
+  };
+
   const changeChartsData = () => {
     setAccountWatchlist((prev) => {
       return [
@@ -135,6 +143,7 @@ export const AppContextProvier = ({ children }) => {
         changeChartsData,
         isMinSidebarOpen,
         setIsMinSidebarOpen,
+        genAccountDataRandom,
       }}
     >
       {children}
